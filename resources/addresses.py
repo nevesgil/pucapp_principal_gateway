@@ -1,12 +1,14 @@
-import requests
 from flask.views import MethodView
-from flask_smorest import abort, Blueprint
+from flask_smorest import Blueprint, abort
+import requests
 from flask import request
+from resources.schemas import AddressSchema, AddressUpdateSchema
+from datetime import date
+import json
 
 blp = Blueprint("Addresses", __name__, description="Operations on addresses")
 
-# Users Service Base URL (running on Docker)
-USERS_SERVICE_URL = "localhost:5001"
+USERS_SERVICE_URL = "http://localhost:5001"
 
 
 def forward_request(method, endpoint, json_data=None):
@@ -29,8 +31,10 @@ class Address(MethodView):
     def delete(self, address_id):
         return forward_request("DELETE", f"/address/{address_id}")
 
-    def put(self, address_id):
-        return forward_request("PUT", f"/address/{address_id}", request.json)
+    @blp.arguments(AddressUpdateSchema)
+    def put(self, address_data, address_id):
+        address_data = request.get_json()
+        return forward_request("PUT", f"/address/{address_id}", address_data)
 
 
 @blp.route("/address")
@@ -38,8 +42,11 @@ class AddressList(MethodView):
     def get(self):
         return forward_request("GET", "/address")
 
-    def post(self):
-        return forward_request("POST", "/address", request.json)
+    @blp.response(201)
+    @blp.arguments(AddressSchema)
+    def post(self, user_data):
+        user_data = request.get_json()
+        return forward_request("POST", "/address", user_data)
 
 
 @blp.route("/address/lookup/<string:zip_code>")

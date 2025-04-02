@@ -30,7 +30,7 @@ def create_app():
 
     # Register the Blueprints
     api.register_blueprint(UsersBlueprint)
-    # api.register_blueprint(AddressesBlueprint)
+    api.register_blueprint(AddressesBlueprint)
 
     return app
 
