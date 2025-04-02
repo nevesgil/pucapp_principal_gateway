@@ -4,6 +4,7 @@ from flask_cors import CORS
 from resources.users import blp as UsersBlueprint
 from resources.addresses import blp as AddressesBlueprint
 
+
 def create_app():
     app = Flask(__name__)
 
@@ -14,7 +15,9 @@ def create_app():
     app.config["OPENAPI_VERSION"] = "3.0.3"
     app.config["OPENAPI_URL_PREFIX"] = "/docs"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/"
-    app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
+    app.config["OPENAPI_SWAGGER_UI_URL"] = (
+        "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
+    )
 
     # Initialize API & CORS
     api = Api(app)
@@ -27,9 +30,10 @@ def create_app():
 
     # Register the Blueprints
     api.register_blueprint(UsersBlueprint)
-    #api.register_blueprint(AddressesBlueprint)
+    # api.register_blueprint(AddressesBlueprint)
 
     return app
+
 
 if __name__ == "__main__":
     app = create_app()

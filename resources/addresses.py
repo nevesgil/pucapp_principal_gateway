@@ -8,16 +8,18 @@ blp = Blueprint("Addresses", __name__, description="Operations on addresses")
 # Users Service Base URL (running on Docker)
 USERS_SERVICE_URL = "localhost:5001"
 
+
 def forward_request(method, endpoint, json_data=None):
     """Forward a request to the Users Service."""
     url = f"{USERS_SERVICE_URL}{endpoint}"
-    
+
     try:
         response = requests.request(method, url, json=json_data, timeout=10)
         response.raise_for_status()
         return response.json(), response.status_code
     except requests.RequestException as e:
         abort(500, message=f"Error forwarding request: {str(e)}")
+
 
 @blp.route("/address/<int:address_id>")
 class Address(MethodView):
