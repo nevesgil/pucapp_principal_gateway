@@ -2,7 +2,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 import requests
 from flask import request
-from resources.service_users_schemas import UserSchema, UserUpdateSchema
+from resources.schemas.service_users_schemas import UserSchema, UserUpdateSchema
 from datetime import date
 import json
 

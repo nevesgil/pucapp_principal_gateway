@@ -2,7 +2,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 import requests
 from flask import request
-from resources.service_shopping_schemas import (
+from resources.schemas.service_shopping_schemas import (
     CartSchema,
     CartUpdateSchema,
     CartItemSchema,
@@ -19,7 +19,7 @@ blp = Blueprint("Carts", __name__, description="Proxy operations for carts")
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
-            return obj.isoformat()  # Convert date to string (YYYY-MM-DD)
+            return obj.isoformat()  
         return super().default(obj)
 
 

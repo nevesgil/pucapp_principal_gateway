@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from resources.service_shopping_schemas import OrderSchema, OrderUpdateSchema
+from resources.schemas.service_shopping_schemas import OrderSchema, OrderUpdateSchema
 from datetime import date
 import json
 import requests
@@ -14,7 +14,7 @@ blp = Blueprint("Orders", __name__, description="Proxy for order operations")
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
-            return obj.isoformat()  # Convert date to string (YYYY-MM-DD)
+            return obj.isoformat()  
         return super().default(obj)
 
 
@@ -37,7 +37,6 @@ def forward_request(method, endpoint, json_data=None):
         abort(500, message=f"Error forwarding request: {str(e)}")
 
 
-# Single Order
 @blp.route("/order/<int:order_id>")
 class OrderProxy(MethodView):
     @blp.response(200)
@@ -54,7 +53,6 @@ class OrderProxy(MethodView):
         return forward_request("DELETE", f"/order/{order_id}")
 
 
-# List Orders + Create
 @blp.route("/order")
 class OrderListProxy(MethodView):
     @blp.response(200)
@@ -67,7 +65,6 @@ class OrderListProxy(MethodView):
         return forward_request("POST", "/order", order_data)
 
 
-# User's Orders
 @blp.route("/user/<int:user_id>/orders")
 class UserOrdersProxy(MethodView):
     @blp.response(200)
