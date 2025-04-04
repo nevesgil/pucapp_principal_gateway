@@ -1,2 +1,2 @@
-USERS_SERVICE_URL = "http://localhost:5001"
-SHOPPING_SERVICE_URL = "http://localhost:5002"
+USERS_SERVICE_URL = "http://pucapp_users:5000"
+SHOPPING_SERVICE_URL = "http://pucapp_shopping:5000"
