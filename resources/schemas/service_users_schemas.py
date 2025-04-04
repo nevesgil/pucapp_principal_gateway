@@ -9,22 +9,12 @@ class PlainUserSchema(Schema):
 
 class PlainAddressSchema(Schema):
     id = fields.Int(dump_only=True)
-    street = fields.Str(
-        required=False
-    )  
-    district = fields.Str(
-        required=False
-    )  
-    city = fields.Str(
-        required=False
-    )  
-    state = fields.Str(
-        required=False
-    )  
+    street = fields.Str(required=False)
+    district = fields.Str(required=False)
+    city = fields.Str(required=False)
+    state = fields.Str(required=False)
     zip_code = fields.Str(required=True)
-    country = fields.Str(
-        required=False
-    ) 
+    country = fields.Str(required=False)
 
 
 class UserSchema(PlainUserSchema):
@@ -32,9 +22,7 @@ class UserSchema(PlainUserSchema):
 
 
 class AddressSchema(PlainAddressSchema):
-    user_id = fields.Int(
-        load_only=True
-    )
+    user_id = fields.Int(load_only=True)
     user = fields.Nested(PlainUserSchema(), dump_only=True)
 
 

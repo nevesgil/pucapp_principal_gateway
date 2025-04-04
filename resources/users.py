@@ -5,8 +5,8 @@ from flask import request
 from resources.schemas.service_users_schemas import UserSchema, UserUpdateSchema
 from datetime import date
 import json
+from resources.utils.constants import USERS_SERVICE_URL
 
-USERS_SERVICE_URL = "http://localhost:5001"
 
 blp = Blueprint("Users", __name__, description="Proxy operations for users")
 
@@ -14,7 +14,7 @@ blp = Blueprint("Users", __name__, description="Proxy operations for users")
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
-            return obj.isoformat()  
+            return obj.isoformat()
         return super().default(obj)
 
 

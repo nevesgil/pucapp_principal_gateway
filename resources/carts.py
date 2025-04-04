@@ -10,8 +10,8 @@ from resources.schemas.service_shopping_schemas import (
 )
 import json
 from datetime import date
+from resources.utils.constants import SHOPPING_SERVICE_URL
 
-SHOPPING_SERVICE_URL = "http://localhost:5002"
 
 blp = Blueprint("Carts", __name__, description="Proxy operations for carts")
 
@@ -19,7 +19,7 @@ blp = Blueprint("Carts", __name__, description="Proxy operations for carts")
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
-            return obj.isoformat()  
+            return obj.isoformat()
         return super().default(obj)
 
 

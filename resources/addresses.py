@@ -5,10 +5,9 @@ from flask import request
 from resources.schemas.service_users_schemas import AddressSchema, AddressUpdateSchema
 from datetime import date
 import json
+from resources.utils.constants import USERS_SERVICE_URL
 
 blp = Blueprint("Addresses", __name__, description="Operations on addresses")
-
-USERS_SERVICE_URL = "http://localhost:5001"
 
 
 def forward_request(method, endpoint, json_data=None):

@@ -6,7 +6,8 @@ import json
 import requests
 from flask import request
 
-SHOPPING_SERVICE_URL = "http://localhost:5002"
+from resources.utils.constants import SHOPPING_SERVICE_URL
+
 
 blp = Blueprint("Orders", __name__, description="Proxy for order operations")
 
@@ -14,7 +15,7 @@ blp = Blueprint("Orders", __name__, description="Proxy for order operations")
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
-            return obj.isoformat()  
+            return obj.isoformat()
         return super().default(obj)
 
 

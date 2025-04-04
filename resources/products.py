@@ -5,8 +5,10 @@ from flask_smorest import Blueprint, abort
 from flask import request
 import json
 from datetime import date
+from resources.utils.constants import SHOPPING_SERVICE_URL
 
-SHOPPING_SERVICE_URL = "http://localhost:5002"
+
+blp = Blueprint("Products", __name__, description="Proxy for product operations")
 
 
 class CustomJSONEncoder(json.JSONEncoder):
@@ -31,9 +33,6 @@ def forward_request(method, endpoint, json_data=None):
 
     except requests.RequestException as e:
         abort(500, message=f"Error forwarding request: {str(e)}")
-
-
-blp = Blueprint("Products", __name__, description="Proxy for product operations")
 
 
 @blp.route("/products")
