@@ -5,6 +5,7 @@ from resources.users import blp as UsersBlueprint
 from resources.addresses import blp as AddressesBlueprint
 from resources.products import blp as ProductsBlueprint
 from resources.carts import blp as CartsBlueprint
+from resources.order import blp as OrderBlueprint
 
 
 def create_app():
@@ -35,6 +36,7 @@ def create_app():
     api.register_blueprint(AddressesBlueprint)
     api.register_blueprint(ProductsBlueprint)
     api.register_blueprint(CartsBlueprint)
+    api.register_blueprint(OrderBlueprint)
 
     return app
 
