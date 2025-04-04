@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  pucapp_principal_gateway:
+    build: .
+    image: pucapp_shopping
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+#     networks:
+#       - pucapp_infra_pucapp_network
+# networks:
+#   pucapp_infra_pucapp_network:
+#     external: true

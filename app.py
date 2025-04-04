@@ -3,6 +3,7 @@ from flask_smorest import Api
 from flask_cors import CORS
 from resources.users import blp as UsersBlueprint
 from resources.addresses import blp as AddressesBlueprint
+from resources.products import blp as ProductsBlueprint
 
 
 def create_app():
@@ -31,6 +32,7 @@ def create_app():
     # Register the Blueprints
     api.register_blueprint(UsersBlueprint)
     api.register_blueprint(AddressesBlueprint)
+    api.register_blueprint(ProductsBlueprint)
 
     return app
 
