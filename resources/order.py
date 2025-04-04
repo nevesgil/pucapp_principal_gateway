@@ -10,6 +10,7 @@ SHOPPING_SERVICE_URL = "http://localhost:5002"
 
 blp = Blueprint("Orders", __name__, description="Proxy for order operations")
 
+
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
@@ -27,7 +28,7 @@ def forward_request(method, endpoint, json_data=None):
 
         if response.status_code == 204 or not response.content:
             return "", 204
-        
+
         return (
             json.loads(json.dumps(response.json(), cls=CustomJSONEncoder)),
             response.status_code,
@@ -52,6 +53,7 @@ class OrderProxy(MethodView):
     def delete(self, order_id):
         return forward_request("DELETE", f"/order/{order_id}")
 
+
 # List Orders + Create
 @blp.route("/order")
 class OrderListProxy(MethodView):
@@ -63,6 +65,7 @@ class OrderListProxy(MethodView):
     @blp.response(201)
     def post(self, order_data):
         return forward_request("POST", "/order", order_data)
+
 
 # User's Orders
 @blp.route("/user/<int:user_id>/orders")

@@ -2,7 +2,12 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 import requests
 from flask import request
-from resources.service_shopping_schemas import CartSchema, CartUpdateSchema, CartItemSchema, CartItemAddSchema
+from resources.service_shopping_schemas import (
+    CartSchema,
+    CartUpdateSchema,
+    CartItemSchema,
+    CartItemAddSchema,
+)
 import json
 from datetime import date
 
@@ -28,7 +33,7 @@ def forward_request(method, endpoint, json_data=None):
 
         if response.status_code == 204 or not response.content:
             return "", 204
-        
+
         return (
             json.loads(json.dumps(response.json(), cls=CustomJSONEncoder)),
             response.status_code,
@@ -76,7 +81,9 @@ class CartItemManagerProxy(MethodView):
     @blp.arguments(CartItemSchema(partial=True))
     @blp.response(200)
     def patch(self, item_data, cart_id, product_id):
-        return forward_request("PATCH", f"/cart/{cart_id}/items/{product_id}", item_data)
+        return forward_request(
+            "PATCH", f"/cart/{cart_id}/items/{product_id}", item_data
+        )
 
 
 @blp.route("/user/<int:user_id>/carts")

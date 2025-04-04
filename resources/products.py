@@ -8,11 +8,13 @@ from datetime import date
 
 SHOPPING_SERVICE_URL = "http://localhost:5002"
 
+
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
             return obj.isoformat()  # Convert date to string (YYYY-MM-DD)
         return super().default(obj)
+
 
 def forward_request(method, endpoint, json_data=None):
     """Forward a request to the Users Service and handle date serialization."""
@@ -29,10 +31,11 @@ def forward_request(method, endpoint, json_data=None):
         )
 
     except requests.RequestException as e:
-        abort(500, message=f"Error forwarding request: {str(e)}") 
+        abort(500, message=f"Error forwarding request: {str(e)}")
 
 
 blp = Blueprint("Products", __name__, description="Proxy for product operations")
+
 
 @blp.route("/products")
 class ProductListProxy(MethodView):
