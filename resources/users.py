@@ -14,7 +14,7 @@ blp = Blueprint("Users", __name__, description="Proxy operations for users")
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
-            return obj.isoformat()  # Convert date to string (YYYY-MM-DD)
+            return obj.isoformat()  
         return super().default(obj)
 
 
@@ -26,7 +26,6 @@ def forward_request(method, endpoint, json_data=None):
         response = requests.request(method, url, json=json_data, timeout=10)
         response.raise_for_status()
 
-        # Convert response JSON while handling date serialization
         return (
             json.loads(json.dumps(response.json(), cls=CustomJSONEncoder)),
             response.status_code,
