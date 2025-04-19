@@ -112,12 +112,36 @@ i) Clone the repository into your machine as:
 git clone https://github.com/nevesgil/pucapp_service_users.git
 ```
 
-ii) Run the docker compose file
+ii) Go into the folder
+
+```
+cd pucapp_principal_gateway
+```
+
+iii) Run the docker compose file
 
 Having the Docker up and running on your machine, you may simply run the command below to have the services running:
 
 ```
 docker compose up -d --build
+```
+
+**Optional**
+
+If you prefer, you may also use the commands:
+
+```
+docker build -t pucapp_principal_gateway .
+```
+
+```
+docker run -d \
+  --name pucapp_principal_gateway \
+  -p 5000:5000 \
+  -v "$(pwd)":/app \
+  --network pucapp_infra_pucapp_network \
+  pucapp_shopping
+
 ```
 
 Obs:
@@ -126,7 +150,7 @@ When not using the service anymore, run:
 docker compose down
 ```
 
-iii) Access the service on https://localhost:5000
+iv) Access the service on https://localhost:5000
 
 
 #### Endpoints
